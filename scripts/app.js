@@ -12,7 +12,7 @@ $(document).ready(function(){
       console.log('in ajax success');
       friends= JSON.parse(data);
 
-      studentGenerator();
+      setTimeout(studentGenerator, 325);
 
 
 
@@ -42,7 +42,9 @@ $(document).ready(function(){
     var city = friends.students[i].city;
     var cityC = (city.charAt(0).toUpperCase() + city.slice(1));
     var shoutOut = friends.students[i].shoutout;
+    // var donothing= function(){};
         //clear and replace existing div
+
         $('#classMate').remove();
         var showMe= document.createElement('div');
         showMe.id= "classMate";
@@ -62,7 +64,7 @@ $(document).ready(function(){
 
           //generate shoutout from JSON
           var soContent = document.createElement('p');
-          soContent.textContent = shoutOut;
+          soContent.textContent = "Shout out: " + shoutOut;
           showMe.appendChild(soContent);
 
 
@@ -74,29 +76,40 @@ $(document).ready(function(){
         progress.textContent = bumpUp + " / 20";
         showMe.appendChild(progress);
         $('body').append(showMe);
+        $('#classMate').hide().fadeIn();
+};
+var fadeOut = function() {
+ setTimeout(studentGenerator, 325);
+
+        $('#classMate').fadeOut();
+
+
 };
 
 var nextStudent = $(document).on('click', '#nextS', function () {
   if( friends.students[(i +1)] === undefined) {
-    alert("Sorry! You're already at the last student.");
+    i=0;
+
+    fadeOut();
   }
 
 else {
   i++;
   console.log(i);
 
-  studentGenerator();
+  fadeOut();
 }
 });
 
 var prevStudent =$(document).on('click', '#prevS', function() {
   if(i===0) {
-    alert("You're already at the first student.");
+    i= (19);
+    fadeOut();
   }
   else {
     i--;
     console.log(i);
-    studentGenerator();
+    fadeOut();
   }
 });
 
